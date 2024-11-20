@@ -79,6 +79,12 @@ const LoginScreen = () => {
     }
   }, [nome, senha, navigation]);
 
+  const goToRegistrationScreen = () => {
+    navigation.reset({
+      routes: [{name: 'CadastroUser'}],
+    });
+  };
+
   return (
     <Container>
       <Logo source={require('../../assets/tfish.png')} />
@@ -128,7 +134,7 @@ const LoginScreen = () => {
         </Button>
         <MessageButton>
           <TextCadastre>Ainda não tem cadastro? </TextCadastre>
-          <SignUp>
+          <SignUp onPress={goToRegistrationScreen}>
             <TextCadastreBold>Cadastre-se aqui</TextCadastreBold>
           </SignUp>
         </MessageButton>
