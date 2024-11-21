@@ -1,18 +1,52 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {Button, Text} from 'react-native';
+import {Button, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import {Slide, Title, FormContainer, Input} from './style';
+import {
+  Slide,
+  Title,
+  FormContainer,
+  Input,
+  InputWrapper,
+  Logo,
+  StyledIcon,
+} from './style';
 import {CommonActions, NavigationProp} from '@react-navigation/native';
+
+const renderNextButton = () => {
+  return (
+    <Text style={{color: '#236084', fontSize: 16, fontWeight: 'bold'}}>
+      Próximo
+    </Text>
+  );
+};
+
+const renderSkipButton = () => {
+  return (
+    <Text style={{color: '#236084', fontSize: 16, fontWeight: 'bold'}}>
+      Pular
+    </Text>
+  );
+};
+
+const renderDoneButton = () => {
+  return (
+    <Text style={{color: '#236084', fontSize: 16, fontWeight: 'bold'}}>
+      Concluir
+    </Text>
+  );
+};
 
 interface Slide {
   key: string;
   title: string;
   content: JSX.Element;
   backgroundColor: string;
+  image: any;
 }
 
 type RootStackParamList = {
-  Login: undefined; // Ajuste as rotas de acordo com o que há no seu projeto
+  Login: undefined;
 };
 
 interface FormSliderProps {
@@ -36,38 +70,51 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
       title: 'Crie sua conta',
       content: (
         <FormContainer>
-          <Input
-            placeholder="Digite seu nome"
-            value={formData.nome}
-            onChangeText={value => handleInputChange('nome', value)}
-          />
-          <Input
-            placeholder="Digite sua senha"
-            value={formData.email}
-            onChangeText={value => handleInputChange('senha', value)}
-          />
+          <InputWrapper>
+            <Input
+              placeholder="Digite seu nome"
+              value={formData.nome}
+              onChangeText={value => handleInputChange('nome', value)}
+            />
+            <StyledIcon name="user" size={15} />
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              placeholder="Digite sua senha"
+              secureTextEntry
+              value={formData.senha}
+              onChangeText={value => handleInputChange('senha', value)}
+            />
+            <StyledIcon name="eye" size={15} />
+          </InputWrapper>
         </FormContainer>
       ),
-      backgroundColor: '#59b2ab',
+      backgroundColor: '#fff',
+      image: require('../../assets/profile.png'),
     },
     {
       key: '2',
       title: 'Defina sua senha',
       content: (
         <FormContainer>
-          <Input
-            placeholder="Digite seu estado"
-            value={formData.senha}
-            onChangeText={value => handleInputChange('estado', value)}
-          />
-          <Input
-            placeholder="Digite sua cidade"
-            value={formData.senha}
-            onChangeText={value => handleInputChange('cidade', value)}
-          />
+          <InputWrapper>
+            <Input
+              placeholder="Digite seu estado"
+              value={formData.nome}
+              onChangeText={value => handleInputChange('estado', value)}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              placeholder="Digite sua cidade"
+              value={formData.senha}
+              onChangeText={value => handleInputChange('cidade', value)}
+            />
+          </InputWrapper>
         </FormContainer>
       ),
-      backgroundColor: '#febe29',
+      backgroundColor: '#fff',
+      image: require('../../assets/teste1.png'),
     },
     {
       key: '3',
@@ -77,28 +124,33 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
           <Text>Você está quase lá! Agora é só finalizar.</Text>
           <Button
             title="Finalizar"
-            onPress={() => {
-              // Substituir a navegação com `reset`
+            onPress={() =>
               navigation.dispatch(
                 CommonActions.reset({
                   index: 0,
                   routes: [{name: 'Login'}],
                 }),
-              );
-            }}
+              )
+            }
           />
         </FormContainer>
       ),
-      backgroundColor: '#22bcb5',
+      backgroundColor: '#fff',
+      image: require('../../assets/teste1.png'),
     },
   ];
 
   const renderItem = ({item}: {item: Slide}) => {
     return (
-      <Slide backgroundColor={item.backgroundColor}>
-        <Title>{item.title}</Title>
-        {item.content}
-      </Slide>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}>
+        <Slide backgroundColor={item.backgroundColor}>
+          <Logo source={item.image} />
+          <Title>{item.title}</Title>
+          {item.content}
+        </Slide>
+      </KeyboardAvoidingView>
     );
   };
 
@@ -123,6 +175,9 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
           }),
         )
       }
+      renderNextButton={renderNextButton}
+      renderSkipButton={renderSkipButton}
+      renderDoneButton={renderDoneButton}
     />
   );
 };

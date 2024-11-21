@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 // Obtemos as dimensões da tela para possíveis cálculos
 const {width, height} = Dimensions.get('window');
@@ -30,7 +31,7 @@ export const Slide = styled.View<SlideProps>`
 export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;
-  color: #fff;
+  color: #3d3d3d;
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -41,11 +42,37 @@ export const FormContainer = styled.View`
   padding-horizontal: 20px;
 `;
 
+// Wrapper para input e ícone
+export const InputWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border-width: 1px;
+  border-color: #ddd;
+  padding-horizontal: 10px;
+`;
+
+// Ícone estilizado
+export const StyledIcon = styled(Icon)`
+  margin-right: 10px;
+  color: #999;
+`;
+
 // Campo de entrada (Input)
 export const Input = styled.TextInput`
+  flex: 1;
   height: 40px;
-  background-color: #fff;
-  margin-bottom: 15px;
-  padding-horizontal: 10px;
-  border-radius: 5px;
+  color: #000;
+  font-size: 16px;
 `;
+
+// Logo
+export const Logo = styled.Image`
+  width: ${width * 0.5}px; /* Menor largura */
+  height: ${height * 0.30}px; /* Menor altura */
+  resize-mode: contain;
+  margin-bottom: 20px;
+`;
+
