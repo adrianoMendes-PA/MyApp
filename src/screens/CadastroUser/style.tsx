@@ -13,10 +13,12 @@ interface SlideProps {
 export const Container = styled.SafeAreaView`
   background-color: #ffffffff;
   flex: 1;
+  height: 100%; /* Garante que ocupa toda a tela */
   justify-content: center;
   align-items: center;
-  padding: ${height * 0.02}px ${width * 0.05}px;
+  padding: ${height * 0.01}px ${width * 0.05}px;
 `;
+
 
 // Slide do Intro Slider
 export const Slide = styled.View<SlideProps>`
@@ -70,9 +72,9 @@ export const Input = styled.TextInput`
 
 // Logo
 export const Logo = styled.Image`
-  width: ${width * 0.5}px; /* Menor largura */
-  height: ${height * 0.30}px; /* Menor altura */
-  resize-mode: contain;
-  margin-bottom: 20px;
+  width: 200px;
+  height: 200px;
+  margin-top: -30px; /* Espaço extra no topo */
+  margin-bottom: 15px;
 `;
 

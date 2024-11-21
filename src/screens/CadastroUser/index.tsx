@@ -155,30 +155,34 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
   };
 
   return (
-    <AppIntroSlider
-      renderItem={renderItem}
-      data={slides}
-      onDone={() =>
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{name: 'Login'}],
-          }),
-        )
-      }
-      showSkipButton={true}
-      onSkip={() =>
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{name: 'Login'}],
-          }),
-        )
-      }
-      renderNextButton={renderNextButton}
-      renderSkipButton={renderSkipButton}
-      renderDoneButton={renderDoneButton}
-    />
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <AppIntroSlider
+        renderItem={renderItem}
+        data={slides}
+        onDone={() =>
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'Login'}],
+            }),
+          )
+        }
+        showSkipButton={true}
+        onSkip={() =>
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'Login'}],
+            }),
+          )
+        }
+        renderNextButton={renderNextButton}
+        renderSkipButton={renderSkipButton}
+        renderDoneButton={renderDoneButton}
+      />
+    </KeyboardAvoidingView>
   );
 };
 
