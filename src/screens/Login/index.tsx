@@ -4,7 +4,7 @@ import {Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Api from '../../api/api';
+import Api from '../../services/api/api';
 import {RootParamList} from '../../types';
 import {
   Logo,
