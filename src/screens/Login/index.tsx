@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useCallback} from 'react';
 import {Modal} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from '../../services/api/api';
@@ -112,7 +112,7 @@ const LoginScreen = () => {
           />
           <Pass onPress={() => setHidePass(prev => !prev)} activeOpacity={0.7}>
             <Icon
-              name={hidePass ? 'eye-off' : 'eye'}
+              name={hidePass ? 'eye-slash' : 'eye'}
               color="#999"
               size={18}
               style={{paddingLeft: 15}}
@@ -126,7 +126,7 @@ const LoginScreen = () => {
             <ButtonContent>
               <ButtonText>Entrar</ButtonText>
               <Icon
-                name="log-in"
+                name="sign-in-alt"
                 size={15}
                 color="#FFF"
                 style={{marginLeft: 5}}
