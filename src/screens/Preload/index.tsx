@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {Container, IconLoading} from './style';
-import {StatusBar, Image} from 'react-native';
+import {Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
+import StatusBar from '../../components/StatusBar';
 
 // Define o tipo do RootParamList com as rotas disponíveis
 type RootParamList = {
@@ -37,7 +38,7 @@ export default () => {
   return (
     <>
       <Container>
-        <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
+        <StatusBar />
         <Image source={require('../../assets/tfish.png')} />
         <IconLoading size={'large'} />
       </Container>

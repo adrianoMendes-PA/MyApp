@@ -29,6 +29,7 @@ import {
   ModalButtonText,
 } from './style';
 import {StackNavigationProp} from '@react-navigation/stack';
+import StatusBar from '../../components/StatusBar';
 
 const LoginScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootParamList>>();
@@ -87,6 +88,7 @@ const LoginScreen = () => {
 
   return (
     <Container>
+      <StatusBar />
       <Logo source={require('../../assets/tfish.png')} />
       <Form>
         <Label>Seu Nome *</Label>
