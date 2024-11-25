@@ -12,6 +12,7 @@ import {
   StyledIcon,
 } from './style';
 import {CommonActions, NavigationProp} from '@react-navigation/native';
+import StatusBar from '../../components/StatusBar';
 
 const renderNextButton = () => {
   return (
@@ -56,8 +57,9 @@ interface FormSliderProps {
 const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
   const [formData, setFormData] = useState({
     nome: '',
-    email: '',
     senha: '',
+    estado: '',
+    cidade: '',
   });
 
   const handleInputChange = (name: string, value: string) => {
@@ -100,16 +102,18 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
           <InputWrapper>
             <Input
               placeholder="Digite seu estado"
-              value={formData.nome}
+              value={formData.estado}
               onChangeText={value => handleInputChange('estado', value)}
             />
+            <StyledIcon name="map" size={15} />
           </InputWrapper>
           <InputWrapper>
             <Input
               placeholder="Digite sua cidade"
-              value={formData.senha}
+              value={formData.cidade}
               onChangeText={value => handleInputChange('cidade', value)}
             />
+            <StyledIcon name="city" size={15} />
           </InputWrapper>
         </FormContainer>
       ),
@@ -145,6 +149,7 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
+        <StatusBar />
         <Slide backgroundColor={item.backgroundColor}>
           <Logo source={item.image} />
           <Title>{item.title}</Title>
