@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {apiRequest} from './apiClient';
 
+// Interfaces para as estruturas de dados
 interface Usuario {
   nome: string;
   senha: string;
@@ -28,7 +29,9 @@ interface Peixe {
   fase_criacao: string;
 }
 
-export const api = {
+// Objeto de API com os métodos
+const api = {
+  // Cadastro de usuário
   cadastroUsuario: async (data: Usuario): Promise<any> => {
     return apiRequest({
       method: 'POST',
@@ -37,6 +40,7 @@ export const api = {
     });
   },
 
+  // Login do usuário
   login: async (nome: string, senha: string): Promise<LoginResponse> => {
     return apiRequest<LoginResponse>({
       method: 'POST',
@@ -45,16 +49,18 @@ export const api = {
     });
   },
 
+  // Cadastro de tanque
   cadastraTanque: async (data: Tanque): Promise<any> => {
     const token = await AsyncStorage.getItem('token');
     return apiRequest({
       method: 'POST',
       endpoint: '/tanque',
       body: data,
-      token: token || '', // Garantir que o token seja uma string
+      token: token || '', // Garante que o token seja uma string, mesmo que esteja nulo
     });
   },
 
+  // Cadastro de peixe
   cadastraPeixe: async (data: Peixe): Promise<any> => {
     const token = await AsyncStorage.getItem('token');
     return apiRequest({
@@ -65,3 +71,6 @@ export const api = {
     });
   },
 };
+
+// Exportação padrão
+export default api;
