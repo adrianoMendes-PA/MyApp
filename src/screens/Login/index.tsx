@@ -99,7 +99,7 @@ const LoginScreen = () => {
             value={nome}
             onChangeText={setNome}
           />
-          <Icon name="user" color="#999" size={18} style={{paddingLeft: 15}} />
+          <Icon name="user" color="#999" size={15} style={{paddingLeft: 15}} />
         </InputArea>
         <Label>Sua Senha *</Label>
         <InputArea>
@@ -114,7 +114,7 @@ const LoginScreen = () => {
             <Icon
               name={hidePass ? 'eye-slash' : 'eye'}
               color="#999"
-              size={18}
+              size={15}
               style={{paddingLeft: 15}}
             />
           </Pass>

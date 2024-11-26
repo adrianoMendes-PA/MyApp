@@ -1,3 +1,4 @@
+// Definição da URL base
 const baseURL = process.env.DEV_API;
 
 interface FetchOptions {
@@ -22,20 +23,28 @@ export async function apiRequest<T>({
     headers.Authorization = `Bearer ${token}`;
   }
 
+  // Formando a URL completa
+  const fullUrl = `${baseURL}${endpoint}`;
+
   try {
-    const response = await fetch(`${baseURL}${endpoint}`, {
+    const response = await fetch(fullUrl, {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
     });
 
+    // Se a resposta não for ok, captura os detalhes
     if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+      const errorDetails = await response.text(); // Obtendo detalhes do erro
+      throw new Error(
+        `HTTP Error: ${response.status} ${response.statusText} - ${errorDetails}`,
+      );
     }
 
+    // Retorna a resposta como JSON
     return (await response.json()) as T;
   } catch (error) {
-    console.error(`API Request failed: ${error}`);
-    throw error; // Propagate the error for further handling
+    console.error(`API Request failed:`, error);
+    throw error; // Repropaga o erro para quem chama a função
   }
 }

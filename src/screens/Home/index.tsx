@@ -1,5 +1,10 @@
 import React from 'react';
+import {Text} from 'react-native';
 
 export default () => {
-  return <></>;
+  return (
+    <>
+      <Text>TELA HOME</Text>
+    </>
+  );
 };
