@@ -14,7 +14,7 @@ const {width, height} = Dimensions.get('window');
 // Estilização do Container
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: #ffffff; /* Removido #ffffffff para evitar duplicidade */
+  background-color: #ffffff;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -24,7 +24,7 @@ export const Container = styled(SafeAreaView)`
 
 // Estilização do Header
 export const Header = styled(View)`
-  height: 35px;
+  height: 36px;
   background-color: #236084;
   justify-content: center;
   align-items: center;

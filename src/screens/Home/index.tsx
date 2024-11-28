@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {
   Container,
@@ -18,11 +18,15 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Footer from '../../components/Footer';
 import {StackNavigationProp} from '@react-navigation/stack';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {DEV_API} from '@env';
+
 // Defina os tipos de navegação para seu stack (ou outro tipo de navegação)
 type RootStackParamList = {
   Home: undefined;
-  CadastroTanque: undefined;
-  // Adicione as outras telas que você tem no seu navegador
+  RegisterTanque: undefined;
+  DetailsTanque: undefined;
 };
 
 type Props = {
@@ -30,9 +34,36 @@ type Props = {
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
+  const [total, setTotal] = useState(0);
+
+  // MOSTRA A QUANTIDADE DE TANQUES CADASTRADOS
+  async function TotalTanques() {
+    const token = await AsyncStorage.getItem('token');
+    let baseURL = DEV_API;
+
+    const response = await fetch(`${baseURL}/tanque`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+
+    const totalCount = response.headers.get('x-total-count');
+    setTotal(totalCount ? parseInt(totalCount, 10) : 0);
+  }
+
+  useEffect(() => {
+    TotalTanques();
+  }, []);
+
   // NAVEGA PARA AS TELAS DE CADASTRO
-  const CadastroTanque = () => {
-    navigation.navigate('CadastroTanque');
+  const RegisterTanque = () => {
+    navigation.navigate('RegisterTanque');
+  };
+
+  // NAVEGA PARA AS TELAS DE DETALHES
+  const DetailsTanque = () => {
+    navigation.navigate('DetailsTanque');
   };
 
   return (
@@ -48,13 +79,13 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         <Box>
           <Inner>
             <TituloCard>Tanques</TituloCard>
-            <ButtonIcon onPress={CadastroTanque}>
+            <ButtonIcon onPress={RegisterTanque}>
               <Icon name="inbox" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
             <Label>Tanques cadastrados</Label>
-            <InfoLabel>4</InfoLabel>
-            <ButtonDetails>
+            <InfoLabel>{total}</InfoLabel>
+            <ButtonDetails onPress={DetailsTanque}>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
           </Inner>
