@@ -13,12 +13,9 @@ import {
   InfoLabel,
   ButtonDetails,
   TextButtonDetails,
-  Footer,
-  TextFooter,
-  ButtonIconFooter,
 } from './style';
-
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Footer from '../../components/Footer';
 
 export default () => {
   return (
@@ -47,12 +44,12 @@ export default () => {
         </Box>
         <Box>
           <Inner>
-            <TituloCard>Tanques</TituloCard>
+            <TituloCard>Peixes</TituloCard>
             <ButtonIcon>
-              <Icon name="inbox" size={70} color="#236084" />
+              <Icon name="fish" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
-            <Label>Tanques cadastrados</Label>
+            <Label>Último registro</Label>
             <InfoLabel>4</InfoLabel>
             <ButtonDetails>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
@@ -61,13 +58,13 @@ export default () => {
         </Box>
         <Box>
           <Inner>
-            <TituloCard>Tanques</TituloCard>
+            <TituloCard>Ração</TituloCard>
             <ButtonIcon>
-              <Icon name="inbox" size={70} color="#236084" />
+              <Icon name="soap" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
-            <Label>Tanques cadastrados</Label>
-            <InfoLabel>4</InfoLabel>
+            <Label>Tipo de ração usada</Label>
+            <InfoLabel>Não há registros</InfoLabel>
             <ButtonDetails>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
@@ -75,13 +72,13 @@ export default () => {
         </Box>
         <Box>
           <Inner>
-            <TituloCard>Tanques</TituloCard>
+            <TituloCard>Tarefas</TituloCard>
             <ButtonIcon>
               <Icon name="inbox" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
-            <Label>Tanques cadastrados</Label>
-            <InfoLabel>4</InfoLabel>
+            <Label>Última terefa cadastrada</Label>
+            <InfoLabel>Não há tarefas</InfoLabel>
             <ButtonDetails>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
@@ -90,28 +87,7 @@ export default () => {
       </Container>
 
       {/* Conteúdo do Footer */}
-      <Footer>
-        <ButtonIconFooter hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <Icon name="home" size={18} color="#FFF" />
-          <TextFooter>Início</TextFooter>
-        </ButtonIconFooter>
-        <ButtonIconFooter hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <Icon name="chart-line" size={18} color="#FFF" />
-          <TextFooter>Atividades</TextFooter>
-        </ButtonIconFooter>
-        <ButtonIconFooter hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <Icon name="dollar-sign" size={18} color="#FFF" />
-          <TextFooter>Financeiro</TextFooter>
-        </ButtonIconFooter>
-        <ButtonIconFooter hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <Icon name="user" size={18} color="#FFF" />
-          <TextFooter>Perfil</TextFooter>
-        </ButtonIconFooter>
-        <ButtonIconFooter hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-          <Icon name="tag" size={18} color="#FFF" />
-          <TextFooter>Sobre</TextFooter>
-        </ButtonIconFooter>
-      </Footer>
+      <Footer />
     </>
   );
 };

@@ -66,8 +66,9 @@ export const TituloCard = styled(Text)`
   color: #444;
   text-align: center;
   margin-top: 10px;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
+  margin-bottom: 10px;
 `;
 
 export const ButtonIcon = styled(TouchableOpacity)``;
@@ -91,7 +92,7 @@ export const Label = styled(Text)`
 // InfoLabel
 export const InfoLabel = styled(Text)`
   text-align: center;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
   color: #236084;
   margin-top: 5px;
@@ -109,28 +110,4 @@ export const TextButtonDetails = styled(Text)`
   font-size: 15px;
   color: #236084;
   margin-top: 10px;
-`;
-
-// Footer
-export const Footer = styled(View)`
-  width: 100%;
-  height: 8%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  background-color: #236084;
-`;
-
-// Texto do footer
-export const TextFooter = styled(Text)`
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-`;
-
-export const ButtonIconFooter = styled(TouchableOpacity)`
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  padding: 5px; 
 `;
