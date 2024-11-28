@@ -6,6 +6,9 @@ import Login from '../screens/Login';
 import CadastroUser from '../screens/CadastroUser';
 import Home from '../screens/Home';
 
+// TELAS DE CADASTRO
+import CadastroTanque from '../screens/Register/RegisterTanque';
+
 const Stack = createStackNavigator();
 
 export default () => (
@@ -18,5 +21,7 @@ export default () => (
     <Stack.Screen name="CadastroUser" component={CadastroUser} />
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Home" component={Home} />
+
+    <Stack.Screen name="CadastroTanque" component={CadastroTanque} />
   </Stack.Navigator>
 );

@@ -1961,7 +1961,7 @@
   dependencies:
     color "^4.2.3"
 
-"@react-navigation/native@^7.0.3":
+"@react-navigation/native@^7.0.8":
   version "7.0.8"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-7.0.8.tgz#a194935654185b8b08c6fd7b42e6855618223a63"
   integrity sha512-L1FYVCBqR5SWBabQbinfIJdJvv41pk/JG+PHANjxXj+WTWrZ75GKjTjmn5a7be94Dwhl5v8DCyD5T4SOHJq6UA==
@@ -2125,6 +2125,13 @@
   integrity sha512-c6WbyCgWTBgKKMESj/8b4w+zWcZSsCforson7UdXtXMecG3MxCinYi6ihhrHVPyUrVzORsvEzK8zg32z4pK6Sg==
   dependencies:
     "@types/react" "*"
+
+"@types/react-navigation@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@types/react-navigation/-/react-navigation-3.4.0.tgz#d610d13c9162312079a8ca102660143f07432cbf"
+  integrity sha512-Y7F5zU8BTBK8tEOvUqgvwvPZ7+9vnc2UI1vHwJ/9ZJG98TntNv04GWa6lrn4MA4149pqw6cyNw/V49Yd2osAFQ==
+  dependencies:
+    react-navigation "*"
 
 "@types/react-test-renderer@^18.0.0":
   version "18.3.0"
@@ -6043,6 +6050,11 @@ react-native@0.76.2:
     whatwg-fetch "^3.0.0"
     ws "^6.2.3"
     yargs "^17.6.2"
+
+react-navigation@*:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-5.0.0.tgz#a7dd98a6148ba997834ebcf5a5073bdb3d4f4eb3"
+  integrity sha512-ACTzjc4L1ik7rJ092ZhIELBJ/pnoLgRIqWHSKcYcaBASxyjJCgBEDIV5s585HBj55tw25YwNdlj3+d4B4MYWDg==
 
 react-refresh@^0.14.0:
   version "0.14.2"
