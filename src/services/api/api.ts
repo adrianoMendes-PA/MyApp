@@ -50,7 +50,7 @@ const api = {
   },
 
   // Cadastro de tanque
-  cadastraTanque: async (data: Tanque): Promise<any> => {
+  cadastraTanque: async (nome_tanque: string, profundidade: string, largura: string, comprimento: string, tipo_peixe: string, quant_peixe: string, data: Tanque): Promise<any> => {
     const token = await AsyncStorage.getItem('token');
     return apiRequest({
       method: 'POST',

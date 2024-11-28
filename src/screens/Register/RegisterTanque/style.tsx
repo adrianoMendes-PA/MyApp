@@ -50,14 +50,33 @@ export const InputPicker = styled.View`
 
 export const ContainerBtn = styled.View`
   flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  margin-top: 10px;
 `;
 export const SaveButton = styled.TouchableOpacity`
   height: 42px;
-  background-color: #9ed2b4;
+  background-color: #6dbb8f;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   padding-horizontal: 45px;
 `;
+
+export const CancelButton = styled.TouchableOpacity`
+  height: 42px;
+  background-color: #cf4040;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding-horizontal: 35px;
+`;
+
+export const TextButton = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+`;
+
+export const IconLoading = styled.ActivityIndicator.attrs({
+  color: '#FFFF',
+})``;
