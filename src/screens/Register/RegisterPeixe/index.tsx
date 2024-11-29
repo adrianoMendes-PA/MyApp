@@ -8,10 +8,26 @@ import {
   InputPicker,
   ContainerForm,
   Input,
+  ContainerBtn,
+  SaveButton,
+  CancelButton,
+  TextButton,
+  IconLoading,
 } from './style';
 import {Picker} from '@react-native-picker/picker';
+import {Alert} from 'react-native';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
+
+import api from '../../../services/api/api';
+
+// Definir o tipo esperado para a navegação
+type RootStackParamList = {
+  Home: undefined;
+};
 
 export default () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const peixeOptions = [
     {key: 0, name: 'Escolha do tipo do peixe', value: 0},
     {key: 1, name: 'Tambaqui', value: 1},
@@ -24,9 +40,79 @@ export default () => {
     {key: 3, name: 'Engorda', value: 3},
   ];
 
-  const [tipoPeixe, setTipoPeixe] = useState(peixeOptions[0].value);
-  const [quantPeixe, setQuantPeixe] = useState('');
-  const [faseCriacao, setFaseCriacao] = useState(faseCriacaoOptions[0].value);
+  const [tipo_peixe, setTipoPeixe] = useState(peixeOptions[0].value);
+  const [quant_peixe, setQuantPeixe] = useState('');
+  const [fase_criacao, setFaseCriacao] = useState(faseCriacaoOptions[0].value);
+  const [loading, setLoading] = useState(true);
+
+  const Cadastrapeixe = async () => {
+    if (tipo_peixe !== 0 && quant_peixe !== '') {
+      setLoading(false);
+
+      const data = {
+        tipo_peixe: tipo_peixe.toString(),
+        quant_peixe: parseFloat(quant_peixe),
+        fase_criacao: fase_criacao.toString(),
+      };
+
+      let json = await api.cadastraPeixe(
+        tipo_peixe,
+        quant_peixe,
+        fase_criacao,
+        data,
+      );
+
+      if (json.user_id) {
+        if (fase_criacao === 0) {
+          Alert.alert(
+            'Cadastro realizado. Mas, atenção!',
+            'Você não informou a fase de criação do peixe, dessa forma não poderemos sugerir a ração mais adequada para sua criação.',
+            [
+              {
+                text: 'Ok!',
+                onPress: () => console.log('ok clicado'),
+              },
+            ],
+          );
+          navigation.reset({
+            routes: [{name: 'Home'}],
+          });
+        } else {
+          Alert.alert('Sucesso!', 'Cadastrado foi realizado com sucesso.', [
+            {
+              text: 'Ok!',
+              onPress: () => console.log('ok clicado'),
+            },
+          ]);
+          navigation.reset({
+            routes: [{name: 'Home'}],
+          });
+        }
+      } else {
+        Alert.alert('Ops!', 'Aconteceu alguma coisa não esperada.', [
+          {
+            text: 'Ok, entendi.',
+            onPress: () => {
+              navigation.reset({
+                routes: [{name: 'Home'}],
+              });
+            },
+          },
+        ]);
+      }
+    } else {
+      Alert.alert(
+        'Ops!',
+        'Existem campos vazios! Por favor, preencha todos os campos para poder realizar o cadastro.',
+        [
+          {
+            text: 'Ok, entendi.',
+            onPress: () => console.log('ok clicado'),
+          },
+        ],
+      );
+    }
+  };
 
   return (
     <>
@@ -38,7 +124,7 @@ export default () => {
             <Label>Tipo de peixe</Label>
             <InputPicker>
               <Picker
-                selectedValue={tipoPeixe}
+                selectedValue={tipo_peixe}
                 style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => {
                   setTipoPeixe(itemValue);
@@ -60,7 +146,7 @@ export default () => {
               keyboardType="decimal-pad"
               autoCapitalize="none"
               autoCorrect={false}
-              value={quantPeixe}
+              value={quant_peixe}
               onChangeText={setQuantPeixe}
             />
 
@@ -68,7 +154,7 @@ export default () => {
             <Label>Fase da criação</Label>
             <InputPicker>
               <Picker
-                selectedValue={faseCriacao}
+                selectedValue={fase_criacao}
                 style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => {
                   setFaseCriacao(itemValue);
@@ -82,6 +168,22 @@ export default () => {
                 ))}
               </Picker>
             </InputPicker>
+            <ContainerBtn>
+              <SaveButton onPress={() => Cadastrapeixe()}>
+                {loading ? (
+                  <>
+                    <TextButton>Salvar</TextButton>
+                  </>
+                ) : (
+                  <>
+                    <IconLoading />
+                  </>
+                )}
+              </SaveButton>
+              <CancelButton>
+                <TextButton>Cancelar</TextButton>
+              </CancelButton>
+            </ContainerBtn>
           </ContainerForm>
         </ScrollView>
       </Container>

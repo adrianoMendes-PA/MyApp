@@ -54,6 +54,7 @@ export const ContainerBtn = styled.View`
   justify-content: space-between;
   margin-top: 10px;
 `;
+
 export const SaveButton = styled.TouchableOpacity`
   height: 42px;
   background-color: #6dbb8f;
