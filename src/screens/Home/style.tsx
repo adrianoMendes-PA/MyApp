@@ -92,7 +92,7 @@ export const Label = styled(Text)`
 // InfoLabel
 export const InfoLabel = styled(Text)`
   text-align: center;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
   color: #236084;
   margin-top: 5px;

@@ -37,6 +37,9 @@ type Props = {
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
   const [total, setTotal] = useState(0);
+  const [lastRegistration, setLastRegistration] = useState<
+    string | undefined
+  >();
 
   // MOSTRA A QUANTIDADE DE TANQUES CADASTRADOS
   async function TotalTanques() {
@@ -54,8 +57,22 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     setTotal(totalCount ? parseInt(totalCount, 10) : 0);
   }
 
+  // MOSTRA O ULTIMO PEIXE CADASTRADO
+  async function UltimoRegistro() {
+    const token = await AsyncStorage.getItem('token');
+    let baseURL = DEV_API;
+    const response = await fetch(`${baseURL}/peixe`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+    setLastRegistration(response.headers.get('retorno') || '');
+  }
+
   useEffect(() => {
     TotalTanques();
+    UltimoRegistro();
   }, []);
 
   // NAVEGA PARA AS TELAS DE CADASTRO
@@ -106,7 +123,22 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
             </ButtonIcon>
             <Separator />
             <Label>Último registro</Label>
-            <InfoLabel>4</InfoLabel>
+            {(() => {
+              if (lastRegistration === undefined || lastRegistration === null) {
+                return <InfoLabel>Não há registros</InfoLabel>;
+              }
+
+              const peixeLabels: Record<string, string> = {
+                '1': 'Tambaqui',
+                '2': 'Tilápia',
+              };
+
+              return (
+                <InfoLabel>
+                  {peixeLabels[lastRegistration] || 'Não há registro'}
+                </InfoLabel>
+              );
+            })()}
             <ButtonDetails onPress={DetailsPeixe}>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
