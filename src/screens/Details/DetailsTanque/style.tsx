@@ -73,3 +73,18 @@ export const TextAlert = styled.Text`
   justify-content: space-between;
   font-size: 15px;
 `;
+
+export const StyledImage = styled.Image`
+  width: 250px;
+  height: 250px;
+`;
+
+export const TextNoData = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  color: #737380;
+`;
+
+export const IconLoading = styled.ActivityIndicator.attrs({
+  color: '#236084',
+})``;
