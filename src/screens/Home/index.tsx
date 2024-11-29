@@ -26,7 +26,9 @@ import {DEV_API} from '@env';
 type RootStackParamList = {
   Home: undefined;
   RegisterTanque: undefined;
+  RegisterPeixe: undefined;
   DetailsTanque: undefined;
+  DetailsPeixe: undefined;
 };
 
 type Props = {
@@ -60,10 +62,16 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   const RegisterTanque = () => {
     navigation.navigate('RegisterTanque');
   };
+  const RegisterPeixe = () => {
+    navigation.navigate('RegisterPeixe');
+  };
 
   // NAVEGA PARA AS TELAS DE DETALHES
   const DetailsTanque = () => {
     navigation.navigate('DetailsTanque');
+  };
+  const DetailsPeixe = () => {
+    navigation.navigate('DetailsPeixe');
   };
 
   return (
@@ -93,13 +101,13 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         <Box>
           <Inner>
             <TituloCard>Peixes</TituloCard>
-            <ButtonIcon>
+            <ButtonIcon onPress={RegisterPeixe}>
               <Icon name="fish" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
             <Label>Último registro</Label>
             <InfoLabel>4</InfoLabel>
-            <ButtonDetails>
+            <ButtonDetails onPress={DetailsPeixe}>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
           </Inner>
