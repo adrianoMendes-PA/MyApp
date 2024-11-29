@@ -12,7 +12,7 @@ import {
   StyledIcon,
 } from './style';
 import {CommonActions, NavigationProp} from '@react-navigation/native';
-import StatusBar from '../../components/StatusBar';
+import StatusBar from '../../../components/StatusBar';
 
 const renderNextButton = () => {
   return (
@@ -76,7 +76,7 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
             <Input
               placeholder="Digite seu nome"
               value={formData.nome}
-              onChangeText={value => handleInputChange('nome', value)}
+              onChangeText={(value: string) => handleInputChange('nome', value)}
             />
             <StyledIcon name="user" size={15} />
           </InputWrapper>
@@ -85,14 +85,14 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
               placeholder="Digite sua senha"
               secureTextEntry
               value={formData.senha}
-              onChangeText={value => handleInputChange('senha', value)}
+              onChangeText={(value: string) => handleInputChange('senha', value)}
             />
             <StyledIcon name="eye" size={15} />
           </InputWrapper>
         </FormContainer>
       ),
       backgroundColor: '#fff',
-      image: require('../../assets/profile.png'),
+      image: require('../../../assets/profile.png'),
     },
     {
       key: '2',
@@ -103,7 +103,7 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
             <Input
               placeholder="Digite seu estado"
               value={formData.estado}
-              onChangeText={value => handleInputChange('estado', value)}
+              onChangeText={(value: string) => handleInputChange('estado', value)}
             />
             <StyledIcon name="map" size={15} />
           </InputWrapper>
@@ -111,14 +111,14 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
             <Input
               placeholder="Digite sua cidade"
               value={formData.cidade}
-              onChangeText={value => handleInputChange('cidade', value)}
+              onChangeText={(value: string) => handleInputChange('cidade', value)}
             />
             <StyledIcon name="city" size={15} />
           </InputWrapper>
         </FormContainer>
       ),
       backgroundColor: '#fff',
-      image: require('../../assets/teste1.png'),
+      image: require('../../../assets/teste1.png'),
     },
     {
       key: '3',
@@ -140,7 +140,7 @@ const FormSlider: React.FC<FormSliderProps> = ({navigation}) => {
         </FormContainer>
       ),
       backgroundColor: '#fff',
-      image: require('../../assets/teste1.png'),
+      image: require('../../../assets/teste1.png'),
     },
   ];
 
