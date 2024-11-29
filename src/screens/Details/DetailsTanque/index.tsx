@@ -17,6 +17,7 @@ import {
   StyledImage,
   TextNoData,
   IconLoading,
+  CenterContainer,
 } from './style';
 import Footer from '../../../components/Footer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -79,8 +80,10 @@ export default () => {
           </>
         ) : data.length == 0 ? (
           <>
-            <StyledImage source={require('../../../assets/nodata.png')} />
-            <TextNoData>Não há dados armazenados</TextNoData>
+            <CenterContainer>
+              <StyledImage source={require('../../../assets/nodata.png')} />
+              <TextNoData>Não há dados armazenados</TextNoData>
+            </CenterContainer>
           </>
         ) : (
           <ContainerCard>

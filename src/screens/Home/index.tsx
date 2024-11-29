@@ -71,6 +71,17 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   }
 
   useEffect(() => {
+    // Chama a API regularmente a cada 5 segundos
+    const interval = setInterval(() => {
+      TotalTanques();
+      UltimoRegistro();
+    }, 5000); // Intervalo de 5 segundos (ajuste conforme necessário)
+
+    // Cleanup ao desmontar o componente
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     TotalTanques();
     UltimoRegistro();
   }, []);
@@ -135,7 +146,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
               return (
                 <InfoLabel>
-                  {peixeLabels[lastRegistration] || 'Não há registro'}
+                  {peixeLabels[lastRegistration] || 'Não há registros'}
                 </InfoLabel>
               );
             })()}
