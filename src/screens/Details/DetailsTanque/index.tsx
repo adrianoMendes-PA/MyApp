@@ -14,6 +14,10 @@ import {
   View,
   TextAlert,
   Buttom,
+  StyledImage,
+  TextNoData,
+  IconLoading,
+  CenterContainer,
 } from './style';
 import Footer from '../../../components/Footer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -68,11 +72,19 @@ export default () => {
       <Header title="Detalhes do tanque" />
       <Container>
         {loading ? (
-          <Loading>
-            <Text>Aguarde, carregando dados...</Text>
-          </Loading>
+          <>
+            <Loading>
+              <IconLoading size={'large'} />
+              <Text>Aguarde, carregando dados...</Text>
+            </Loading>
+          </>
         ) : data.length == 0 ? (
-          <Text>Não há dados armazenados</Text>
+          <>
+            <CenterContainer>
+              <StyledImage source={require('../../../assets/nodata.png')} />
+              <TextNoData>Não há dados armazenados</TextNoData>
+            </CenterContainer>
+          </>
         ) : (
           <ContainerCard>
             <FlatList

@@ -26,7 +26,9 @@ import {DEV_API} from '@env';
 type RootStackParamList = {
   Home: undefined;
   RegisterTanque: undefined;
+  RegisterPeixe: undefined;
   DetailsTanque: undefined;
+  DetailsPeixe: undefined;
 };
 
 type Props = {
@@ -35,6 +37,9 @@ type Props = {
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
   const [total, setTotal] = useState(0);
+  const [lastRegistration, setLastRegistration] = useState<
+    string | undefined
+  >();
 
   // MOSTRA A QUANTIDADE DE TANQUES CADASTRADOS
   async function TotalTanques() {
@@ -52,18 +57,49 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     setTotal(totalCount ? parseInt(totalCount, 10) : 0);
   }
 
+  // MOSTRA O ULTIMO PEIXE CADASTRADO
+  async function UltimoRegistro() {
+    const token = await AsyncStorage.getItem('token');
+    let baseURL = DEV_API;
+    const response = await fetch(`${baseURL}/peixe`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+    setLastRegistration(response.headers.get('retorno') || '');
+  }
+
+  useEffect(() => {
+    // Chama a API regularmente a cada 5 segundos
+    const interval = setInterval(() => {
+      TotalTanques();
+      UltimoRegistro();
+    }, 5000); // Intervalo de 5 segundos (ajuste conforme necessário)
+
+    // Cleanup ao desmontar o componente
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     TotalTanques();
+    UltimoRegistro();
   }, []);
 
   // NAVEGA PARA AS TELAS DE CADASTRO
   const RegisterTanque = () => {
     navigation.navigate('RegisterTanque');
   };
+  const RegisterPeixe = () => {
+    navigation.navigate('RegisterPeixe');
+  };
 
   // NAVEGA PARA AS TELAS DE DETALHES
   const DetailsTanque = () => {
     navigation.navigate('DetailsTanque');
+  };
+  const DetailsPeixe = () => {
+    navigation.navigate('DetailsPeixe');
   };
 
   return (
@@ -93,13 +129,28 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         <Box>
           <Inner>
             <TituloCard>Peixes</TituloCard>
-            <ButtonIcon>
+            <ButtonIcon onPress={RegisterPeixe}>
               <Icon name="fish" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
             <Label>Último registro</Label>
-            <InfoLabel>4</InfoLabel>
-            <ButtonDetails>
+            {(() => {
+              if (lastRegistration === undefined || lastRegistration === null) {
+                return <InfoLabel>Não há registros</InfoLabel>;
+              }
+
+              const peixeLabels: Record<string, string> = {
+                '1': 'Tambaqui',
+                '2': 'Tilápia',
+              };
+
+              return (
+                <InfoLabel>
+                  {peixeLabels[lastRegistration] || 'Não há registros'}
+                </InfoLabel>
+              );
+            })()}
+            <ButtonDetails onPress={DetailsPeixe}>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>
           </Inner>

@@ -4,14 +4,12 @@ import styled from 'styled-components/native';
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #ffffff;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   margin-bottom: -40px;
 `;
 
-export const View = styled.View`
-  margin-bottom: 10px;
-`;
+export const View = styled.View``;
 
 export const Loading = styled.View`
   flex: 1;
@@ -29,9 +27,8 @@ export const Card = styled.View`
   shadow-color: #333;
   shadow-opacity: 0.3;
   shadow-radius: 2px;
-  margin-horizontal: 19px;
-  margin-vertical: 6px;
-  width: 91%;
+  margin-horizontal: 20px;
+  margin-vertical: 5px;
 `;
 
 export const CardPropriedade = styled.Text`
@@ -93,6 +90,19 @@ export const TextNoData = styled.Text`
   text-align: center;
 `;
 
+export const TextLoadingData = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  color: #737380;
+`;
+
 export const IconLoading = styled.ActivityIndicator.attrs({
   color: '#236084',
 })``;
+
+export const IconContainer = styled.View`
+  flex-direction: row;
+  position: absolute;
+  right: 10px;
+  align-items: center;
+`;

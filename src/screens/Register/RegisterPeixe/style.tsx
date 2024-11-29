@@ -1,5 +1,5 @@
-import {Dimensions} from 'react-native';
 import styled from 'styled-components/native';
+import {Dimensions} from 'react-native';
 
 // Obtendo as dimensões da tela
 const {width, height} = Dimensions.get('window');
@@ -55,6 +55,12 @@ export const ContainerBtn = styled.View`
   margin-top: 10px;
 `;
 
+export const TextButton = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+`;
+
 export const SaveButton = styled.TouchableOpacity`
   height: 42px;
   background-color: #6dbb8f;
@@ -71,12 +77,6 @@ export const CancelButton = styled.TouchableOpacity`
   align-items: center;
   border-radius: 5px;
   padding-horizontal: 35px;
-`;
-
-export const TextButton = styled.Text`
-  color: #fff;
-  font-weight: bold;
-  font-size: 15px;
 `;
 
 export const IconLoading = styled.ActivityIndicator.attrs({

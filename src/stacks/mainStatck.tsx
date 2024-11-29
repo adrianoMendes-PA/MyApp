@@ -8,9 +8,11 @@ import Home from '../screens/Home';
 
 // TELAS DE CADASTRO
 import RegisterTanque from '../screens/Register/RegisterTanque';
+import RegisterPeixe from '../screens/Register/RegisterPeixe';
 
 // TELAS DE DETALHES
 import DetailsTanque from '../screens/Details/DetailsTanque';
+import DetailsPeixe from '../screens/Details/DetailsPeixe';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +28,9 @@ export default () => (
     <Stack.Screen name="Home" component={Home} />
 
     <Stack.Screen name="RegisterTanque" component={RegisterTanque} />
+    <Stack.Screen name="RegisterPeixe" component={RegisterPeixe} />
 
     <Stack.Screen name="DetailsTanque" component={DetailsTanque} />
+    <Stack.Screen name="DetailsPeixe" component={DetailsPeixe} />
   </Stack.Navigator>
 );
