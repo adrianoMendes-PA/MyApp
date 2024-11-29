@@ -44,8 +44,9 @@ export const InputPicker = styled.View`
   border-color: #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
+  padding: 0 10px;
+  height: 40px;
   justify-content: center;
-  align-items: center;
 `;
 
 export const ContainerBtn = styled.View`

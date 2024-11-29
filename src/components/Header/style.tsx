@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 // Estilização do Header
 export const Header = styled.View`
   flex-direction: row;
-  height: 36px;
+  height: 40px;
   background-color: #236084;
   justify-content: center;
   align-items: center;

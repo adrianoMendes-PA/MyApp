@@ -166,7 +166,7 @@ export default () => {
             <InputPicker>
               <Picker
                 selectedValue={tipo_peixe}
-                style={{height: 36, width: '100%'}}
+                style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => setTipoPeixe(itemValue)}>
                 <Picker.Item label="Selecione o tipo de peixe" value={null} />
                 {peixe.map(cr => {

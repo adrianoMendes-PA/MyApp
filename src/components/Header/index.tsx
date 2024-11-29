@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface HeaderProps {
-  title: string; // Define o tipo da propriedade title
+  title: string;
 }
 
 export default ({title}: HeaderProps) => {
