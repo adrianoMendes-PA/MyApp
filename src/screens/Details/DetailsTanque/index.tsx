@@ -21,13 +21,14 @@ import {
 } from './style';
 import Footer from '../../../components/Footer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {Text, FlatList} from 'react-native';
+import {Text, FlatList, Alert} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DEV_API} from '@env';
 const baseURL = DEV_API;
 
 interface Tanque {
+  id: any;
   nome_tanque: string;
   profundidade: string;
   largura: string;
@@ -63,7 +64,44 @@ export default () => {
     }
   }
 
+  // Função para deletar um peixe
+  async function deleteRegister(id: any) {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await fetch(`${baseURL}/tanque/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        Alert.alert('Sucesso!', 'Registro deletado com sucesso!');
+        // Atualiza o estado local removendo o item deletado
+        setData(prevData => prevData.filter(item => item.id !== id));
+      } else {
+        const errorData = await response.json();
+        console.error('Erro ao deletar:', errorData);
+        Alert.alert('Erro', 'Não foi possível deletar o registro.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição de delete:', error);
+      Alert.alert('Erro', 'Não foi possível deletar o registro.');
+    }
+  }
+
   useEffect(() => {
+    // Chama a API regularmente a cada 5 segundos
+    const interval = setInterval(() => {
+      loadTanque();
+    }, 5000);
+    // Cleanup ao desmontar o componente
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Carrega os dados na primeira montagem do componente
     loadTanque();
   }, []);
 
@@ -107,7 +145,24 @@ export default () => {
                         style={{marginLeft: 25}}
                       />
                     </Buttom>
-                    <Buttom>
+                    <Buttom
+                      onPress={() =>
+                        Alert.alert(
+                          'Confirmação!',
+                          'Você tem certeza que deseja deletar este registro?',
+                          [
+                            {
+                              text: 'Deletar',
+                              onPress: () => deleteRegister(item.id),
+                              style: 'destructive',
+                            },
+                            {
+                              text: 'Cancelar',
+                              style: 'cancel',
+                            },
+                          ],
+                        )
+                      }>
                       <Icon
                         name="trash-alt"
                         size={17}

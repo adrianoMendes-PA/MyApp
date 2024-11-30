@@ -173,7 +173,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           <Inner>
             <TituloCard>Tarefas</TituloCard>
             <ButtonIcon>
-              <Icon name="inbox" size={70} color="#236084" />
+              <Icon name="calendar-check" size={70} color="#236084" />
             </ButtonIcon>
             <Separator />
             <Label>Última terefa cadastrada</Label>

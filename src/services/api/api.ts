@@ -83,6 +83,16 @@ const api = {
       token: token || '',
     });
   },
+
+  // Delete de peixe
+  deleteRegister: async (id: string): Promise<void> => {
+    const token = await AsyncStorage.getItem('token');
+    return apiRequest({
+      method: 'DELETE',
+      endpoint: `/peixe/${id}`,
+      token: token || '',
+    });
+  },
 };
 
 // Exportação padrão
