@@ -74,7 +74,7 @@ export default () => {
       });
 
       if (response.ok) {
-        Alert.alert('Sucesso', 'Registro deletado com sucesso!');
+        Alert.alert('Sucesso!', 'Registro deletado com sucesso!');
         // Atualiza o estado local removendo o item deletado
         setData(prevData => prevData.filter(item => item.id !== id));
       } else {
