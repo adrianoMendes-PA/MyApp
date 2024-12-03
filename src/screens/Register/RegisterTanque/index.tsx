@@ -30,12 +30,12 @@ export default () => {
     {key: 1, name: 'Tambaqui', value: 1},
     {key: 2, name: 'Tilápia', value: 2},
   ]);
-  const [tipo_peixe, setTipoPeixe] = useState('');
-  const [nome_tanque, setNomeTanque] = useState('');
+  const [tipoPeixe, setTipoPeixe] = useState('');
+  const [nomeTanque, setNomeTanque] = useState('');
   const [profundidade, setProfundidade] = useState('');
   const [largura, setlargura] = useState('');
   const [comprimento, setComprimento] = useState('');
-  const [quant_peixe, setQuantPeixe] = useState('');
+  const [quantPeixe, setQuantPeixe] = useState('');
   const [loading, setLoading] = useState(true);
 
   const registerTanque = async () => {
@@ -43,27 +43,27 @@ export default () => {
       profundidade !== '' &&
       largura !== '' &&
       comprimento !== '' &&
-      tipo_peixe !== '' &&
-      quant_peixe !== ''
+      tipoPeixe !== '' &&
+      quantPeixe !== ''
     ) {
       setLoading(false);
 
       const data = {
-        nome_tanque,
-        profundidade: parseFloat(profundidade), // Converte para número
+        nomeTanque,
+        profundidade: parseFloat(profundidade),
         largura: parseFloat(largura),
         comprimento: parseFloat(comprimento),
-        tipo_peixe: tipo_peixe.toString(), // Converte para string
-        quant_peixe: parseInt(quant_peixe, 10), // Converte para número inteiro
+        tipoPeixe: tipoPeixe.toString(),
+        quantPeixe: parseInt(quantPeixe, 10),
       };
 
       let json = await api.cadastraTanque(
-        nome_tanque,
+        nomeTanque,
         profundidade,
         largura,
         comprimento,
-        tipo_peixe,
-        quant_peixe,
+        tipoPeixe,
+        quantPeixe,
         data,
       );
 
@@ -132,7 +132,7 @@ export default () => {
               placeholder="exemplo: tanque 1"
               autoCapitalize="none"
               autoCorrect={false}
-              value={nome_tanque}
+              value={nomeTanque}
               onChangeText={setNomeTanque}
             />
             <Label>Profundidade do Tanque</Label>
@@ -165,7 +165,7 @@ export default () => {
             <Label>Tipo de peixe</Label>
             <InputPicker>
               <Picker
-                selectedValue={tipo_peixe}
+                selectedValue={tipoPeixe}
                 style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => setTipoPeixe(itemValue)}>
                 <Picker.Item label="Selecione o tipo de peixe" value={null} />
@@ -186,7 +186,7 @@ export default () => {
               keyboardType={'decimal-pad'}
               autoCapitalize="none"
               autoCorrect={false}
-              value={quant_peixe}
+              value={quantPeixe}
               onChangeText={setQuantPeixe}
             />
             <ContainerBtn>

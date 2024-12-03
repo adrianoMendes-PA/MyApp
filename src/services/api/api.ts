@@ -15,17 +15,17 @@ interface LoginResponse {
 }
 
 interface Tanque {
-  nome_tanque: string;
+  nomeTanque: string;
   profundidade: number;
   largura: number;
   comprimento: number;
-  tipo_peixe: string;
-  quant_peixe: number;
+  tipoPeixe: string;
+  quantPeixe: number;
 }
 
 interface Peixe {
-  tipo_peixe: string;
-  quant_peixe: number;
+  tipoPeixe: string;
+  quantPeixe: number;
   fase_criacao: string;
 }
 
@@ -44,25 +44,25 @@ const api = {
   login: async (nome: string, senha: string): Promise<LoginResponse> => {
     return apiRequest<LoginResponse>({
       method: 'POST',
-      endpoint: '/session',
+      endpoint: '/usuario/login',
       body: {nome, senha},
     });
   },
 
   // Cadastro de tanque
   cadastraTanque: async (
-    nome_tanque: string,
+    nomeTanque: string,
     profundidade: string,
     largura: string,
     comprimento: string,
-    tipo_peixe: string,
-    quant_peixe: string,
+    tipoPeixe: string,
+    quantPeixe: string,
     data: Tanque,
   ): Promise<any> => {
     const token = await AsyncStorage.getItem('token');
     return apiRequest({
       method: 'POST',
-      endpoint: '/tanque',
+      endpoint: '/tanque/createTanque',
       body: data,
       token: token || '',
     });
@@ -70,8 +70,8 @@ const api = {
 
   // Cadastro de peixe
   cadastraPeixe: async (
-    tipo_peixe: number,
-    quant_peixe: string,
+    tipoPeixe: number,
+    quantPeixe: string,
     fase_criacao: number,
     data: Peixe,
   ): Promise<any> => {

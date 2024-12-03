@@ -46,13 +46,12 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     const token = await AsyncStorage.getItem('token');
     let baseURL = DEV_API;
 
-    const response = await fetch(`${baseURL}/tanque`, {
+    const response = await fetch(`${baseURL}/tanque/totalTanques`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
       },
     });
-
     const totalCount = response.headers.get('x-total-count');
     setTotal(totalCount ? parseInt(totalCount, 10) : 0);
   }
@@ -75,7 +74,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     const interval = setInterval(() => {
       TotalTanques();
       UltimoRegistro();
-    }, 5000); // Intervalo de 5 segundos (ajuste conforme necessário)
+    }, 5000);
 
     // Cleanup ao desmontar o componente
     return () => clearInterval(interval);
@@ -120,7 +119,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
             </ButtonIcon>
             <Separator />
             <Label>Tanques cadastrados</Label>
-            <InfoLabel>{total}</InfoLabel>
+            {total ? (
+              <InfoLabel>{total}</InfoLabel>
+            ) : (
+              <InfoLabel>Não há registros</InfoLabel>
+            )}
             <ButtonDetails onPress={DetailsTanque}>
               <TextButtonDetails>Ver detalhes</TextButtonDetails>
             </ButtonDetails>

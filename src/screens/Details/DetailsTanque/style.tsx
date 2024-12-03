@@ -41,7 +41,7 @@ export const CardPropriedade = styled.Text`
 `;
 
 export const CardValor = styled.Text`
-  font-size: 15px;
+  font-size: 17px;
   color: #737380;
   margin-left: 10px;
   flex-shrink: 1;

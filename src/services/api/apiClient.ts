@@ -26,7 +26,19 @@ export async function apiRequest<T>({
   // Formando a URL completa
   const fullUrl = `${baseURL}${endpoint}`;
 
+  // Adicionando logs para depuração
+  console.log('API URL:', fullUrl); // Mostra a URL completa
+  console.log('Request Method:', method); // Mostra o método (GET, POST, etc.)
+  console.log('Headers:', headers); // Mostra os headers
+  console.log('Request Payload:', body); // Mostra os dados que estão sendo enviados
+
   try {
+    // Adicionando o setTimeout com atraso de 100ms
+    await new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 100); // Atraso de 100ms
+    });
     const response = await fetch(fullUrl, {
       method,
       headers,
@@ -44,7 +56,7 @@ export async function apiRequest<T>({
     // Retorna a resposta como JSON
     return (await response.json()) as T;
   } catch (error) {
-    console.error(`API Request failed:`, error);
-    throw error; // Repropaga o erro para quem chama a função
+    console.error('API Request failed:', error);
+    throw error;
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable eqeqeq */
 import React, {useEffect, useState} from 'react';
@@ -29,12 +30,12 @@ const baseURL = DEV_API;
 
 interface Tanque {
   id: any;
-  nome_tanque: string;
+  nomeTanque: string;
   profundidade: string;
   largura: string;
   comprimento: string;
-  tipo_peixe: number;
-  quant_peixe: number;
+  tipoPeixe: number;
+  quantPeixe: number;
   ph_agua?: string;
 }
 
@@ -47,16 +48,17 @@ export default () => {
   async function loadTanque() {
     const token = await AsyncStorage.getItem('token');
     try {
-      const response = await fetch(`${baseURL}/tanque`, {
+      const response = await fetch(`${baseURL}/tanque/getTanques`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-      // eslint-disable-next-line @typescript-eslint/no-shadow
+
       const data = await response.json();
-      setData(data || []);
+
+      setData(data.tanques || []);
     } catch (error) {
       console.warn(error);
     } finally {
@@ -132,10 +134,10 @@ export default () => {
                 <Card>
                   <AlignComponents>
                     <CardPropriedade>Nome do Tanque:</CardPropriedade>
-                    {item.nome_tanque === '' ? (
+                    {item.nomeTanque === '' ? (
                       <NameNull>sem nome</NameNull>
                     ) : (
-                      <CardValor>{item.nome_tanque}</CardValor>
+                      <CardValor>{item.nomeTanque}</CardValor>
                     )}
                     <Buttom>
                       <Icon
@@ -189,7 +191,7 @@ export default () => {
 
                   <AlignComponents>
                     <CardPropriedade>Tipo de Peixe:</CardPropriedade>
-                    {item.tipo_peixe == 1 ? (
+                    {item.tipoPeixe == 1 ? (
                       <CardValor>Tambaqui</CardValor>
                     ) : (
                       <CardValor>Tilápia</CardValor>
@@ -198,7 +200,7 @@ export default () => {
 
                   <AlignComponents>
                     <CardPropriedade>Quantidade de Peixe:</CardPropriedade>
-                    <CardValor>{item.quant_peixe}</CardValor>
+                    <CardValor>{item.quantPeixe}</CardValor>
                   </AlignComponents>
 
                   {item.profundidade > '1.50' && (
@@ -215,7 +217,7 @@ export default () => {
                   )}
                 </Card>
               )}
-              keyExtractor={item => item.nome_tanque}
+              keyExtractor={item => item.nomeTanque}
             />
           </ContainerCard>
         )}
