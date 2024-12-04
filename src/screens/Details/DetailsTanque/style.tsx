@@ -35,13 +35,13 @@ export const Card = styled.View`
 `;
 
 export const CardPropriedade = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: #41414d;
   font-weight: bold;
 `;
 
 export const CardValor = styled.Text`
-  font-size: 17px;
+  font-size: 15px;
   color: #737380;
   margin-left: 10px;
   flex-shrink: 1;
@@ -96,3 +96,9 @@ export const TextNoData = styled.Text`
 export const IconLoading = styled.ActivityIndicator.attrs({
   color: '#236084',
 })``;
+
+export const TextLoadingData = styled.Text`
+  font-size: 15px;
+  font-weight: bold;
+  color: #737380;
+`;

@@ -16,6 +16,9 @@ import RegisterTarefas from '../screens/Register/RegisterTarefas';
 import DetailsTanque from '../screens/Details/DetailsTanque';
 import DetailsPeixe from '../screens/Details/DetailsPeixe';
 
+// ISSO É UM TESTE
+import TankDetails from '../screens/Details/DetailsTanque/TankDetails';
+
 // FOOTER
 import Activities from '../screens/Activities';
 import Financial from '../screens/Financial';
@@ -42,6 +45,8 @@ export default () => (
 
     <Stack.Screen name="DetailsTanque" component={DetailsTanque} />
     <Stack.Screen name="DetailsPeixe" component={DetailsPeixe} />
+
+    <Stack.Screen name="TankDetails" component={TankDetails} />
 
     <Stack.Screen name="Activities" component={Activities} />
     <Stack.Screen name="Financial" component={Financial} />

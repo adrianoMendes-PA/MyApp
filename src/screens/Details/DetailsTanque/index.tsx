@@ -19,10 +19,12 @@ import {
   TextNoData,
   IconLoading,
   CenterContainer,
+  TextLoadingData,
 } from './style';
 import Footer from '../../../components/Footer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {Text, FlatList, Alert} from 'react-native';
+import {FlatList, Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DEV_API} from '@env';
@@ -43,6 +45,12 @@ export default () => {
   // Definindo os estados para controle de dados e carregamento
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Tanque[]>([]);
+
+  const navigation = useNavigation();
+
+  const navigateToDetail = (tanque: Tanque) => {
+    navigation.navigate('TankDetails', {tanque});
+  };
 
   // Função para carregar dados do tanque
   async function loadTanque() {
@@ -115,7 +123,7 @@ export default () => {
           <>
             <Loading>
               <IconLoading size={'large'} />
-              <Text>Aguarde, carregando dados...</Text>
+              <TextLoadingData>Aguarde, carregando dados...</TextLoadingData>
             </Loading>
           </>
         ) : data.length == 0 ? (
@@ -131,91 +139,93 @@ export default () => {
               data={data}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
-                <Card>
-                  <AlignComponents>
-                    <CardPropriedade>Nome do Tanque:</CardPropriedade>
-                    {item.nomeTanque === '' ? (
-                      <NameNull>sem nome</NameNull>
-                    ) : (
-                      <CardValor>{item.nomeTanque}</CardValor>
-                    )}
-                    <Buttom>
-                      <Icon
-                        name="edit"
-                        size={17}
-                        color="#0d8f45"
-                        style={{marginLeft: 25}}
-                      />
-                    </Buttom>
-                    <Buttom
-                      onPress={() =>
-                        Alert.alert(
-                          'Confirmação!',
-                          'Você tem certeza que deseja deletar este registro?',
-                          [
-                            {
-                              text: 'Deletar',
-                              onPress: () => deleteRegister(item.id),
-                              style: 'destructive',
-                            },
-                            {
-                              text: 'Cancelar',
-                              style: 'cancel',
-                            },
-                          ],
-                        )
-                      }>
-                      <Icon
-                        name="trash-alt"
-                        size={17}
-                        color="#cf4040"
-                        style={{marginLeft: 20}}
-                      />
-                    </Buttom>
-                  </AlignComponents>
-
-                  <AlignComponents>
-                    <CardPropriedade>Profundidade:</CardPropriedade>
-                    <CardValor>{item.profundidade}m</CardValor>
-                  </AlignComponents>
-
-                  <AlignComponents>
-                    <CardPropriedade>Largura:</CardPropriedade>
-                    <CardValor>{item.largura}m</CardValor>
-                  </AlignComponents>
-
-                  <AlignComponents>
-                    <CardPropriedade>Comprimento:</CardPropriedade>
-                    <CardValor>{item.comprimento}m</CardValor>
-                  </AlignComponents>
-
-                  <AlignComponents>
-                    <CardPropriedade>Tipo de Peixe:</CardPropriedade>
-                    {item.tipoPeixe == 1 ? (
-                      <CardValor>Tambaqui</CardValor>
-                    ) : (
-                      <CardValor>Tilápia</CardValor>
-                    )}
-                  </AlignComponents>
-
-                  <AlignComponents>
-                    <CardPropriedade>Quantidade de Peixe:</CardPropriedade>
-                    <CardValor>{item.quantPeixe}</CardValor>
-                  </AlignComponents>
-
-                  {item.profundidade > '1.50' && (
-                    <View>
-                      <TextAlert>
+                <Buttom onPress={() => navigateToDetail(item)}>
+                  <Card>
+                    <AlignComponents>
+                      <CardPropriedade>Nome do Tanque:</CardPropriedade>
+                      {item.nomeTanque === '' ? (
+                        <NameNull>sem nome</NameNull>
+                      ) : (
+                        <CardValor>{item.nomeTanque}</CardValor>
+                      )}
+                      <Buttom>
                         <Icon
-                          name="exclamation-triangle"
-                          size={15}
-                          color="#cf4040"
+                          name="edit"
+                          size={17}
+                          color="#0d8f45"
+                          style={{marginLeft: 25}}
                         />
-                        A profundidade do tanque é maior que 1.50m
-                      </TextAlert>
-                    </View>
-                  )}
-                </Card>
+                      </Buttom>
+                      <Buttom
+                        onPress={() =>
+                          Alert.alert(
+                            'Confirmação!',
+                            'Você tem certeza que deseja deletar este registro?',
+                            [
+                              {
+                                text: 'Deletar',
+                                onPress: () => deleteRegister(item.id),
+                                style: 'destructive',
+                              },
+                              {
+                                text: 'Cancelar',
+                                style: 'cancel',
+                              },
+                            ],
+                          )
+                        }>
+                        <Icon
+                          name="trash-alt"
+                          size={17}
+                          color="#cf4040"
+                          style={{marginLeft: 20}}
+                        />
+                      </Buttom>
+                    </AlignComponents>
+
+                    <AlignComponents>
+                      <CardPropriedade>Profundidade:</CardPropriedade>
+                      <CardValor>{item.profundidade}m</CardValor>
+                    </AlignComponents>
+
+                    <AlignComponents>
+                      <CardPropriedade>Largura:</CardPropriedade>
+                      <CardValor>{item.largura}m</CardValor>
+                    </AlignComponents>
+
+                    <AlignComponents>
+                      <CardPropriedade>Comprimento:</CardPropriedade>
+                      <CardValor>{item.comprimento}m</CardValor>
+                    </AlignComponents>
+
+                    <AlignComponents>
+                      <CardPropriedade>Tipo de Peixe:</CardPropriedade>
+                      {item.tipoPeixe == 1 ? (
+                        <CardValor>Tambaqui</CardValor>
+                      ) : (
+                        <CardValor>Tilápia</CardValor>
+                      )}
+                    </AlignComponents>
+
+                    <AlignComponents>
+                      <CardPropriedade>Quantidade de Peixe:</CardPropriedade>
+                      <CardValor>{item.quantPeixe}</CardValor>
+                    </AlignComponents>
+
+                    {item.profundidade > '1.50' && (
+                      <View>
+                        <TextAlert>
+                          <Icon
+                            name="exclamation-triangle"
+                            size={15}
+                            color="#cf4040"
+                          />
+                          A profundidade do tanque é maior que 1.50m
+                        </TextAlert>
+                      </View>
+                    )}
+                  </Card>
+                </Buttom>
               )}
               keyExtractor={item => item.nomeTanque}
             />
