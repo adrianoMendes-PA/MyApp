@@ -26,7 +26,7 @@ interface Tanque {
 interface Peixe {
   tipoPeixe: string;
   quantPeixe: number;
-  fase_criacao: string;
+  faseCriacao: string;
 }
 
 // Objeto de API com os métodos
@@ -70,15 +70,15 @@ const api = {
 
   // Cadastro de peixe
   cadastraPeixe: async (
-    tipoPeixe: number,
+    tipoPeixe: string,
     quantPeixe: string,
-    fase_criacao: number,
+    faseCriacao: string,
     data: Peixe,
   ): Promise<any> => {
     const token = await AsyncStorage.getItem('token');
     return apiRequest({
       method: 'POST',
-      endpoint: '/peixe',
+      endpoint: '/peixe/createPeixe',
       body: data,
       token: token || '',
     });

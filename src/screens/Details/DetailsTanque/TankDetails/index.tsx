@@ -34,7 +34,7 @@ const TankDetailScreen: React.FC<TankDetailProps> = ({route}) => {
               <CardPropriedade>Volume estimado de água:</CardPropriedade>
               <CardValor>{tanque.volume}.000 L</CardValor>
             </AlignComponents>
-          </Card>/
+          </Card>
           <Wrapper>
             <TextInformation>
               Com base nos dados cadastrados, estimamos o crescimento dos peixes

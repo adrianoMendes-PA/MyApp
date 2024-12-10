@@ -58,16 +58,68 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
   // MOSTRA O ULTIMO PEIXE CADASTRADO
   async function UltimoRegistro() {
-    const token = await AsyncStorage.getItem('token');
-    let baseURL = DEV_API;
-    const response = await fetch(`${baseURL}/peixe`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    });
-    setLastRegistration(response.headers.get('retorno') || '');
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        console.error('Token não encontrado');
+        return;
+      }
+
+      const baseURL = DEV_API;
+      const response = await fetch(`${baseURL}/peixe/getLastPeixe`, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
+
+      if (response.status === 204) {
+        // Atualiza o estado somente se for necessário
+        setLastRegistration(prev => {
+          if (prev !== '') {
+            console.warn('Nenhum peixe encontrado.');
+          }
+          return '';
+        });
+        return;
+      }
+
+      if (response.status === 403) {
+        console.error('Usuário não autenticado.');
+        return;
+      }
+
+      if (!response.ok) {
+        const errorResponse = await response.text();
+        console.error('Erro desconhecido:', errorResponse);
+        return;
+      }
+
+      // Processa a resposta válida
+      const data = await response.json();
+      setLastRegistration(prev => {
+        if (prev !== data) {
+          console.log('Último peixe encontrado:', data);
+        }
+        return data || '';
+      });
+    } catch (error) {
+      console.error('Erro ao buscar o último registro:', error);
+    }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      TotalTanques();
+      UltimoRegistro();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [lastRegistration]);
+
+  useEffect(() => {
+    TotalTanques();
+    UltimoRegistro();
+  }, []);
 
   useEffect(() => {
     // Chama a API regularmente a cada 5 segundos

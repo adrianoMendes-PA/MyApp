@@ -40,30 +40,30 @@ export default () => {
     {key: 3, name: 'Engorda', value: 3},
   ];
 
-  const [tipo_peixe, setTipoPeixe] = useState(peixeOptions[0].value);
-  const [quant_peixe, setQuantPeixe] = useState('');
-  const [fase_criacao, setFaseCriacao] = useState(faseCriacaoOptions[0].value);
+  const [tipoPeixe, setTipoPeixe] = useState(peixeOptions[0].value);
+  const [quantPeixe, setQuantPeixe] = useState('');
+  const [faseCriacao, setFaseCriacao] = useState(faseCriacaoOptions[0].value);
   const [loading, setLoading] = useState(true);
 
   const Cadastrapeixe = async () => {
-    if (tipo_peixe !== 0 && quant_peixe !== '') {
+    if (tipoPeixe !== 0 && quantPeixe !== '') {
       setLoading(false);
 
       const data = {
-        tipo_peixe: tipo_peixe.toString(),
-        quant_peixe: parseFloat(quant_peixe),
-        fase_criacao: fase_criacao.toString(),
+        tipoPeixe: tipoPeixe.toString(),
+        quantPeixe: parseInt(quantPeixe, 10),
+        faseCriacao: faseCriacao.toString(),
       };
 
       let json = await api.cadastraPeixe(
-        tipo_peixe,
-        quant_peixe,
-        fase_criacao,
+        tipoPeixe.toString(),
+        quantPeixe,
+        faseCriacao.toString(),
         data,
       );
 
-      if (json.user_id) {
-        if (fase_criacao === 0) {
+      if (json.user_id !== '') {
+        if (faseCriacao === 0) {
           Alert.alert(
             'Cadastro realizado. Mas, atenção!',
             'Você não informou a fase de criação do peixe, dessa forma não poderemos sugerir a ração mais adequada para sua criação.',
@@ -124,7 +124,7 @@ export default () => {
             <Label>Tipo de peixe</Label>
             <InputPicker>
               <Picker
-                selectedValue={tipo_peixe}
+                selectedValue={tipoPeixe}
                 style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => {
                   setTipoPeixe(itemValue);
@@ -146,7 +146,7 @@ export default () => {
               keyboardType="decimal-pad"
               autoCapitalize="none"
               autoCorrect={false}
-              value={quant_peixe}
+              value={quantPeixe}
               onChangeText={setQuantPeixe}
             />
 
@@ -154,7 +154,7 @@ export default () => {
             <Label>Fase da criação</Label>
             <InputPicker>
               <Picker
-                selectedValue={fase_criacao}
+                selectedValue={faseCriacao}
                 style={{width: '100%', color: '#737380'}}
                 onValueChange={itemValue => {
                   setFaseCriacao(itemValue);

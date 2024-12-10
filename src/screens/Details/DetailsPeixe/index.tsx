@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import Header from '../../../components/Header';
@@ -32,9 +33,9 @@ const baseURL = DEV_API;
 interface Peixe {
   id: any;
   created_at: number | Date | undefined;
-  tipo_peixe: number;
-  quant_peixe: number;
-  fase_criacao: string;
+  tipoPeixe: number;
+  quantPeixe: number;
+  faseCriacao: string;
 }
 
 export default () => {
@@ -42,18 +43,18 @@ export default () => {
   const [data, setData] = useState<Peixe[]>([]);
 
   // Função para carregar os dados do tanque
-  async function fetchData() {
+  async function loadPeixe() {
     const token = await AsyncStorage.getItem('token');
     try {
-      const response = await fetch(`${baseURL}/peixe`, {
+      const response = await fetch(`${baseURL}/peixe/getPeixes`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
-      const updatedData = await response.json();
-      setData(updatedData || []);
+      const data = await response.json();
+      setData(data.peixes || []);
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
     } finally {
@@ -91,7 +92,7 @@ export default () => {
   useEffect(() => {
     // Chama a API regularmente a cada 5 segundos
     const interval = setInterval(() => {
-      fetchData();
+      loadPeixe();
     }, 5000);
     // Cleanup ao desmontar o componente
     return () => clearInterval(interval);
@@ -99,7 +100,7 @@ export default () => {
 
   useEffect(() => {
     // Carrega os dados na primeira montagem do componente
-    fetchData();
+    loadPeixe();
   }, []);
 
   return (
@@ -130,9 +131,9 @@ export default () => {
                   <Card>
                     <AlignComponents>
                       <CardPropriedade>Tipo de peixe:</CardPropriedade>
-                      {item.tipo_peixe.toString() === '0' ? (
+                      {item.tipoPeixe.toString() === '0' ? (
                         <NameNull>sem nome</NameNull>
-                      ) : item.tipo_peixe.toString() === '1' ? (
+                      ) : item.tipoPeixe.toString() === '1' ? (
                         <CardValor>Tambaqui</CardValor>
                       ) : (
                         <CardValor>Tilápia</CardValor>
@@ -175,18 +176,18 @@ export default () => {
                     </AlignComponents>
                     <AlignComponents>
                       <CardPropriedade>Quantidade de peixes:</CardPropriedade>
-                      <CardValor>{item.quant_peixe}</CardValor>
+                      <CardValor>{item.quantPeixe}</CardValor>
                     </AlignComponents>
                     <AlignComponents>
                       <CardPropriedade>Fase de criação:</CardPropriedade>
                       <CardValor>
-                        {item.fase_criacao === ''
+                        {item.faseCriacao === ''
                           ? 'não informado'
-                          : item.fase_criacao.toString() === '1'
+                          : item.faseCriacao.toString() === '1'
                           ? 'Alevino'
-                          : item.fase_criacao.toString() === '2'
+                          : item.faseCriacao.toString() === '2'
                           ? 'Recria'
-                          : item.fase_criacao.toString() === '3'
+                          : item.faseCriacao.toString() === '3'
                           ? 'Engorda'
                           : 'Desconhecido'}
                       </CardValor>
@@ -194,13 +195,13 @@ export default () => {
                     <AlignComponents>
                       <CardPropriedade>Ração sujerida:</CardPropriedade>
                       <CardValor>
-                        {item.fase_criacao === ''
+                        {item.faseCriacao === ''
                           ? 'nada a sugerir'
-                          : item.fase_criacao.toString() === '1'
+                          : item.faseCriacao.toString() === '1'
                           ? 'farelada/pó'
-                          : item.fase_criacao.toString() === '2'
+                          : item.faseCriacao.toString() === '2'
                           ? 'grânulos 1mm/8mm'
-                          : item.fase_criacao.toString() === '3'
+                          : item.faseCriacao.toString() === '3'
                           ? 'grânulos 8mm/10mm'
                           : 'nada a sugerir'}
                       </CardValor>
@@ -212,14 +213,14 @@ export default () => {
                       </CardValor>
                     </AlignComponents>
                     <View>
-                      {item.fase_criacao && (
+                      {item.faseCriacao && (
                         <CardValor
                           style={{color: '#005177', textAlign: 'center'}}>
                           {{
                             '1': 'Na fase da alevinagem o ideal é que a alimentação seja feita 6 vezes ao dia',
                             '2': 'Na fase da recria o ideal é que a alimentação seja feita 4 vezes ao dia',
                             '3': 'Na fase da engorda o ideal é que a alimentação seja feita 3 vezes ao dia',
-                          }[item.fase_criacao] || 'Fase não reconhecida'}
+                          }[item.faseCriacao] || 'Fase não reconhecida'}
                         </CardValor>
                       )}
                     </View>
