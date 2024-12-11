@@ -128,103 +128,105 @@ export default () => {
                 data={data}
                 showsVerticalScrollIndicator={false}
                 renderItem={({item}) => (
-                  <Card>
-                    <AlignComponents>
-                      <CardPropriedade>Tipo de peixe:</CardPropriedade>
-                      {item.tipoPeixe.toString() === '0' ? (
-                        <NameNull>sem nome</NameNull>
-                      ) : item.tipoPeixe.toString() === '1' ? (
-                        <CardValor>Tambaqui</CardValor>
-                      ) : (
-                        <CardValor>Tilápia</CardValor>
-                      )}
-                      <IconContainer>
-                        <Buttom>
-                          <Icon
-                            name="edit"
-                            size={17}
-                            color="#0d8f45"
-                            style={{marginLeft: 20}}
-                          />
-                        </Buttom>
-                        <Buttom
-                          onPress={() =>
-                            Alert.alert(
-                              'Confirmação',
-                              'Você tem certeza que deseja deletar este registro?',
-                              [
-                                {
-                                  text: 'Deletar',
-                                  onPress: () => deleteRegister(item.id),
-                                  style: 'destructive',
-                                },
-                                {
-                                  text: 'Cancelar',
-                                  style: 'cancel',
-                                },
-                              ],
-                            )
-                          }>
-                          <Icon
-                            name="trash-alt"
-                            size={17}
-                            color="#cf4040"
-                            style={{marginLeft: 20}}
-                          />
-                        </Buttom>
-                      </IconContainer>
-                    </AlignComponents>
-                    <AlignComponents>
-                      <CardPropriedade>Quantidade de peixes:</CardPropriedade>
-                      <CardValor>{item.quantPeixe}</CardValor>
-                    </AlignComponents>
-                    <AlignComponents>
-                      <CardPropriedade>Fase de criação:</CardPropriedade>
-                      <CardValor>
-                        {item.faseCriacao === ''
-                          ? 'não informado'
-                          : item.faseCriacao.toString() === '1'
-                          ? 'Alevino'
-                          : item.faseCriacao.toString() === '2'
-                          ? 'Recria'
-                          : item.faseCriacao.toString() === '3'
-                          ? 'Engorda'
-                          : 'Desconhecido'}
-                      </CardValor>
-                    </AlignComponents>
-                    <AlignComponents>
-                      <CardPropriedade>Ração sujerida:</CardPropriedade>
-                      <CardValor>
-                        {item.faseCriacao === ''
-                          ? 'nada a sugerir'
-                          : item.faseCriacao.toString() === '1'
-                          ? 'farelada/pó'
-                          : item.faseCriacao.toString() === '2'
-                          ? 'grânulos 1mm/8mm'
-                          : item.faseCriacao.toString() === '3'
-                          ? 'grânulos 8mm/10mm'
-                          : 'nada a sugerir'}
-                      </CardValor>
-                    </AlignComponents>
-                    <AlignComponents>
-                      <CardPropriedade>Data do cadastro:</CardPropriedade>
-                      <CardValor>
-                        {Intl.DateTimeFormat('pt-BR').format(item.created_at)}
-                      </CardValor>
-                    </AlignComponents>
-                    <View>
-                      {item.faseCriacao && (
-                        <CardValor
-                          style={{color: '#005177', textAlign: 'center'}}>
-                          {{
-                            '1': 'Na fase da alevinagem o ideal é que a alimentação seja feita 6 vezes ao dia',
-                            '2': 'Na fase da recria o ideal é que a alimentação seja feita 4 vezes ao dia',
-                            '3': 'Na fase da engorda o ideal é que a alimentação seja feita 3 vezes ao dia',
-                          }[item.faseCriacao] || 'Fase não reconhecida'}
+                  <Buttom>
+                    <Card>
+                      <AlignComponents>
+                        <CardPropriedade>Tipo de peixe:</CardPropriedade>
+                        {item.tipoPeixe.toString() === '0' ? (
+                          <NameNull>sem nome</NameNull>
+                        ) : item.tipoPeixe.toString() === '1' ? (
+                          <CardValor>Tambaqui</CardValor>
+                        ) : (
+                          <CardValor>Tilápia</CardValor>
+                        )}
+                        <IconContainer>
+                          <Buttom>
+                            <Icon
+                              name="edit"
+                              size={17}
+                              color="#0d8f45"
+                              style={{marginLeft: 20}}
+                            />
+                          </Buttom>
+                          <Buttom
+                            onPress={() =>
+                              Alert.alert(
+                                'Confirmação',
+                                'Você tem certeza que deseja deletar este registro?',
+                                [
+                                  {
+                                    text: 'Deletar',
+                                    onPress: () => deleteRegister(item.id),
+                                    style: 'destructive',
+                                  },
+                                  {
+                                    text: 'Cancelar',
+                                    style: 'cancel',
+                                  },
+                                ],
+                              )
+                            }>
+                            <Icon
+                              name="trash-alt"
+                              size={17}
+                              color="#cf4040"
+                              style={{marginLeft: 20}}
+                            />
+                          </Buttom>
+                        </IconContainer>
+                      </AlignComponents>
+                      <AlignComponents>
+                        <CardPropriedade>Quantidade de peixes:</CardPropriedade>
+                        <CardValor>{item.quantPeixe}</CardValor>
+                      </AlignComponents>
+                      <AlignComponents>
+                        <CardPropriedade>Fase de criação:</CardPropriedade>
+                        <CardValor>
+                          {item.faseCriacao === ''
+                            ? 'não informado'
+                            : item.faseCriacao.toString() === '1'
+                            ? 'Alevino'
+                            : item.faseCriacao.toString() === '2'
+                            ? 'Recria'
+                            : item.faseCriacao.toString() === '3'
+                            ? 'Engorda'
+                            : 'Desconhecido'}
                         </CardValor>
-                      )}
-                    </View>
-                  </Card>
+                      </AlignComponents>
+                      <AlignComponents>
+                        <CardPropriedade>Ração sujerida:</CardPropriedade>
+                        <CardValor>
+                          {item.faseCriacao === ''
+                            ? 'nada a sugerir'
+                            : item.faseCriacao.toString() === '1'
+                            ? 'farelada/pó'
+                            : item.faseCriacao.toString() === '2'
+                            ? 'grânulos 1mm/8mm'
+                            : item.faseCriacao.toString() === '3'
+                            ? 'grânulos 8mm/10mm'
+                            : 'nada a sugerir'}
+                        </CardValor>
+                      </AlignComponents>
+                      <AlignComponents>
+                        <CardPropriedade>Data do cadastro:</CardPropriedade>
+                        <CardValor>
+                          {Intl.DateTimeFormat('pt-BR').format(item.created_at)}
+                        </CardValor>
+                      </AlignComponents>
+                      <View>
+                        {item.faseCriacao && (
+                          <CardValor
+                            style={{color: '#005177', textAlign: 'center'}}>
+                            {{
+                              '1': 'Na fase da alevinagem o ideal é que a alimentação seja feita 6 vezes ao dia',
+                              '2': 'Na fase da recria o ideal é que a alimentação seja feita 4 vezes ao dia',
+                              '3': 'Na fase da engorda o ideal é que a alimentação seja feita 3 vezes ao dia',
+                            }[item.faseCriacao] || 'Fase não reconhecida'}
+                          </CardValor>
+                        )}
+                      </View>
+                    </Card>
+                  </Buttom>
                 )}
                 keyExtractor={item => item.id.toString()}
               />
